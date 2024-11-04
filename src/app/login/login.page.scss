@@ -1,0 +1,102 @@
+ion-content {
+    --background: none; /*quita fondo global*/
+    background-image: url('../../assets/imgns/fondo.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+ion-card {
+    background-color: rgba(255, 255, 255, 0.5); /*background translúcido*/
+    backdrop-filter: blur(5px); /*leve efecto desenfoque*/
+    box-shadow: none;
+    border-radius: 5%;
+    margin: 10% auto;
+    width: 90%;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    padding-top: 20%; //posicionamiento del logo
+    padding-left: 10%; //posicionamiento del logo
+}
+
+
+.login-container img {
+    width: 60%;
+}
+
+/* color para inputs */
+ion-card ion-input {
+    --background: transparent;
+    margin-left: 8px;
+    color: darkgreen; 
+}
+
+ion-card ion-label {
+    color: #8B5E3C; /* color labels de Email y Password */
+}
+
+/* texto card  */
+ion-card ion-text, 
+.forgot-password a {
+    color: #00aaff; /* celeste para enlace */
+}
+
+ion-card ion-item {
+    background: transparent;
+    color: #8B5E3C; 
+}
+
+/* botón de login */
+ion-card ion-button.login-button {
+    --background: #8B5E3C;
+    color: white;
+}
+
+.register-button {
+    color: darkgreen;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-top: 10px;
+    display: block;
+    a {
+        color: #00aaff; 
+        text-decoration: none;
+    }
+}
+
+.login-container img {
+    width: 60%;
+}
+
+
+.logo {
+    width: 62%;
+    animation: zoomInOut 3s ease-in-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    margin-top: 5%;
+}
+
+
+@keyframes zoomInOut {
+    0% {
+        transform: scale(1);
+        opacity:0;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

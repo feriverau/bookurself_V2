@@ -1,0 +1,96 @@
+<ion-header [translucent]="true">
+  <ion-toolbar> 
+    <app-company-name [companyName]="'BookURSelf'"></app-company-name> 
+    <ion-buttons slot="end"> 
+        <ion-menu-button menu="mainMenu"></ion-menu-button>
+   </ion-buttons>  
+  </ion-toolbar> 
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <!-- avatar user y mensaje bienvenida-->
+  <div class="user-info">
+    <img src="../../assets/imgns/user.png" alt="User Avatar" class="user-avatar" />
+    <h2><strong>{{ bienvenidos }}</strong><br/> {{ email }} </h2>
+    <span>Sumérgete en BookURSelf</span>
+  </div>
+   
+  <ion-list class="transparent-list">
+    <ion-list-header>
+      <ion-label>Autores Trending del Día</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>J. K. Rowling</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Stephen King</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>George R. R. Martin</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>John Green</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Alice Walker</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div class="categorias-info">
+    <h2>Categorías</h2>
+  </div>
+
+  <!-- cards categorías -->
+  <ion-card>
+    <img src="../../assets/imgns/mas_buscados.png" alt="Mas Buscados" />
+    <ion-card-header>
+      <ion-card-title>Más Buscados</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Adéntrate en los libros con más actividad en internet del día. Los títulos con más entradas en los buscadores, mencionados por la prensa, favoritos de booktubers y ¡más!
+    </ion-card-content>
+    <ion-button class="custom-button" expand="full" routerLink="/home/masbuscados">Ver Más</ion-button>
+
+  </ion-card>
+
+  <ion-card>
+    <img src="../../assets/imgns/valued_authors.jpg" alt="Mejores Valorados" />
+    <ion-card-header>
+      <ion-card-title>Mejores Valorados</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Conoce los libros, del pasado y del presente, mejores valorados a lo largo de la web
+    </ion-card-content>
+    <ion-button class="custom-button" expand="full" routerLink="/home/mejoresvalorados">Ver Más</ion-button>
+  </ion-card>
+
+  <ion-card>
+    <img src="../../assets/imgns/logo.png" alt="Selección BookURSelf" />
+    <ion-card-header>
+      <ion-card-title>Selección BookURSelf</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Diez libros imprescindibles cada semana, elegidos selectivamente por nuestro equipo de editores
+    </ion-card-content>
+    <ion-button class="custom-button" expand="full" routerLink="/home/seleccionbs">Ver Más</ion-button>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer collapse="fade">
+  <ion-toolbar class="translucent-footer">
+    <ion-title>Contacto: bookurself&#64;gmail.com</ion-title>
+  </ion-toolbar>
+</ion-footer>
+
+
+
+
+
+
+
+
+
+
+

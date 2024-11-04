@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <app-company-name [companyName]="'BookURSelf'"></app-company-name>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="mainMenu"></ion-menu-button>
+    </ion-buttons>  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"> 
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="mislibros">
+        <ion-icon name="ribbon-outline"></ion-icon>
+        <ion-label>Leídos</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="porleer">
+        <ion-icon name="trending-up-outline"></ion-icon>
+        <ion-label>Por Leer</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+  
+ 
+</ion-content>

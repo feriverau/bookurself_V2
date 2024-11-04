@@ -1,0 +1,19 @@
+ion-list {
+    --background: transparent; /* fondo transparente listado */
+    background-color: transparent;
+  }
+  
+ion-item {
+--background: transparent; /* fondo transparente ítems */
+background-color: transparent; 
+}
+
+ion-item ion-icon { 
+    color: #8B5E3C;
+}
+
+ion-header,
+ion-toolbar{
+    background-color: #8B5E3C;
+    color: white;
+}

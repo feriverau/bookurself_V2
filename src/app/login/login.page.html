@@ -1,0 +1,35 @@
+<ion-content [fullscreen]="true">
+  <div class="login-container">
+
+
+  <!--logo-->
+  <div class="logo-container">
+    <img src="../../assets/imgns/logo.png" alt="logo" class="logo">
+  </div>
+  
+    <ion-card class="login-card">
+      
+        <ion-card-content>
+        <ion-item class="input-item">
+          <ion-label postion="floating" color="primary">Email</ion-label>
+          <ion-input  [(ngModel)]="email" type="email" ></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label postion="floating" color="primary">Password</ion-label>
+          <ion-input [(ngModel)]="password" type="password"></ion-input>
+        </ion-item>
+
+        <!--login btn-->
+        <ion-button expand="block" (click)="login()" class="login-button" >Login</ion-button>
+      
+        <ion-button expand="block" (click)="registro()" fill="clear"    class="register-button" >Registrarse</ion-button>
+
+        <ion-text class="forgot-password" color="medium">
+          <a href="#">Presiona aquí si olvidaste tu contraseña</a>
+        </ion-text>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

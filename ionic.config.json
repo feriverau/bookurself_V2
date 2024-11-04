@@ -1,0 +1,7 @@
+{
+  "name": "bookurself",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
