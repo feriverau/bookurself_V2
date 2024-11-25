@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../services/api.service'; // Importa el servicio de la API
 
 interface Book {
   title: string;
@@ -12,54 +13,45 @@ interface Book {
 })
 export class PorleerPage implements OnInit {
   searchTerm: string = ''; // Término de búsqueda
-  books: Book[] = [ // Lista de libros simulada
-    { title: '1984', author: 'George Orwell' },
-    { title: 'Cien años de soledad', author: 'Gabriel García Márquez' },
-    { title: 'El Quijote', author: 'Miguel de Cervantes' },
-    { title: "Moby Dick", author: "Herman Melville" },
-    { title: "El gran Gatsby", author: "F. Scott Fitzgerald" },
-    { title: "Crimen y castigo", author: "Fiódor Dostoyevski" },
-    { title: "El amor en los tiempos del cólera", author: "Gabriel García Márquez" },
-    { title: "La metamorfosis", author: "Franz Kafka" },
-    { title: "El viejo y el mar", author: "Ernest Hemingway" },
-    { title: "La odisea", author: "Homero" },
-    { title: "Fahrenheit 451", author: "Ray Bradbury" },
-    { title: "En busca del tiempo perdido", author: "Marcel Proust" },
-    { title: "Ulises", author: "James Joyce" },
-    { title: "Cumbres borrascosas", author: "Emily Brontë" },
-    { title: "El retrato de Dorian Gray", author: "Oscar Wilde" },
-    { title: "Los miserables", author: "Victor Hugo" },
-    { title: "La guerra y la paz", author: "León Tolstói" },
-    { title: "El guardián entre el centeno", author: "J.D. Salinger" },
-    { title: "Las aventuras de Huckleberry Finn", author: "Mark Twain" },
-    { title: "El proceso", author: "Franz Kafka" },
-    { title: "El conde de Montecristo", author: "Alexandre Dumas" },
-    { title: "Los hermanos Karamazov", author: "Fiódor Dostoyevski" },
-    { title: "El túnel", author: "Ernesto Sabato" },
-    { title: "La casa de los espíritus", author: "Isabel Allende" },
-    { title: "Crónica de una muerte anunciada", author: "Gabriel García Márquez" },
-    { title: "Rayuela", author: "Julio Cortázar" },
-    
-  ];
+  books: Book[] = []; // Lista de libros traídos de la API
   filteredBooks: Book[] = []; 
-  readBooks: Book[] = []; 
+  readBooks: Book[] = []; // Lista de libros seleccionados para leer
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-    this.filteredBooks = this.books; // Inicialmente muestra todos los libros
+    // Inicialmente no hay libros seleccionados
+    this.filteredBooks = []; // O puedes inicializar con algunos libros si lo deseas
   }
 
+  // Función para filtrar libros según el término de búsqueda
   filterBooks() {
-    const term = this.searchTerm.toLowerCase();
-    this.filteredBooks = this.books.filter(book =>
-      book.title.toLowerCase().includes(term) || book.author.toLowerCase().includes(term)
+    if (this.searchTerm.trim() === '') {
+      this.filteredBooks = []; // Si no hay término, no mostrar resultados
+      return;
+    }
+
+    // Llamada al servicio de la API para obtener los libros según el término
+    this.apiService.searchBooks(this.searchTerm).subscribe(
+      (response) => {
+        // Mapea los resultados de la API a nuestro modelo de Book
+        this.filteredBooks = response.docs.map((item: any) => ({
+          title: item.title,
+          author: item.author_name ? item.author_name[0] : 'Desconocido',
+        }));
+      },
+      (error) => {
+        console.error('Error al buscar libros:', error);
+      }
     );
   }
 
+  // Función para agregar un libro a los "libros planeo leer"
   addBook(book: Book) {
+    // Verifica si el libro no está ya en la lista de libros leídos
     if (!this.readBooks.includes(book)) {
       this.readBooks.push(book);
     }
   }
 }
+

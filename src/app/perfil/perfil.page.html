@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <app-company-name [companyName]="'BookURSelf'"></app-company-name>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="mainMenu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content>
+
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Perfil de Usuario</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="usuario.nombre" disabled></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Apellido</ion-label>
+        <ion-input [(ngModel)]="usuario.apellido" disabled></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input [(ngModel)]="usuario.email" disabled></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Nivel de Educación</ion-label>
+        <ion-input [(ngModel)]="usuario.nivel_educacion" disabled></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Fecha de Nacimiento</ion-label>
+        <ion-input [value]="usuario.fecha_nacimiento | formatearFecha" disabled></ion-input>
+      </ion-item>
+
+      
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" (click)="captureImage()">
+    Mi Fotografía
+  </ion-button>
+  
+  <div *ngIf="capturedImage" class="image-container">
+    <img [src]="capturedImage" alt="Imagen capturada" />
+  </div>
+
+
+
+ 
+
+</ion-content>
+

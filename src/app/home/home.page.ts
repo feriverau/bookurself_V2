@@ -26,4 +26,11 @@ export class HomePage {
   navigateTo(page: string) {
     this.router.navigate([page]);
   }
+
+  openWhatsApp() {
+    const phoneNumber = "1234567890";
+    const url = `https://wa.me/${phoneNumber}`;
+    window.open(url, '_blank');
+
+  }
 }

@@ -19,21 +19,25 @@
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item class="custom-item">
+          <ion-item 
+          class="custom-item" 
+          (click)="openUrl('https://www.google.com/search?q=the+housemaid+freida+mcfadden')">
             <ion-thumbnail slot="start">
               <img alt="lib1" src="../../assets/imgns/lib1.png" />
             </ion-thumbnail>
             <ion-label>The Housemaid, por Freida McFadden</ion-label>
           </ion-item>
     
-          <ion-item class="custom-item">
+          <ion-item class="custom-item" 
+          (click)="openUrl('https://www.google.com/search?q=it+ends+with+us+colleen+hoover')">
             <ion-thumbnail slot="start">
               <img alt="lib2" src="../../assets/imgns/lib2.png" />
             </ion-thumbnail>
             <ion-label>It Ends with Us, por Colleen Hoover</ion-label>
           </ion-item>
     
-          <ion-item class="custom-item">
+          <ion-item class="custom-item" 
+          (click)="openUrl('https://www.google.com/search?q=the+anxious+generation+jonathan+haidt')">
             <ion-thumbnail slot="start">
               <img alt="lib3" src="../../assets/imgns/lib3.png" />
             </ion-thumbnail>
@@ -41,7 +45,8 @@
             </ion-label>
           </ion-item>
     
-          <ion-item class="custom-item" lines="none">
+          <ion-item class="custom-item" 
+          (click)="openUrl('https://www.google.com/search?q=fourth+wing+rebecca+yarros')">
             <ion-thumbnail slot="start">
               <img alt="lib4" src="../../assets/imgns/lib4.png" />
             </ion-thumbnail>

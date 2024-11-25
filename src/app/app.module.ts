@@ -9,6 +9,11 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms'; // Asegúrate de importar FormsModule aquí
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,9 +22,13 @@ import { FormsModule } from '@angular/forms'; // Asegúrate de importar FormsMod
     IonicModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule, // Añade FormsModule aquí
+    FormsModule,
+    HttpClientModule,
+  
+    
+     // Añade FormsModule aquí
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },SQLite ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
