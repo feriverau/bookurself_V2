@@ -37,6 +37,30 @@ export class DataService {
         )`,
         []
       );
+
+      await this.dbInstance.executeSql(
+        `CREATE TABLE IF NOT EXISTS read_books(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          title TEXT NOT NULL,
+          author TEXT NOT NULL,
+          user_email TEXT NOT NULL,
+          FOREIGN KEY (user_email) REFERENCES users(email)
+        )`,
+        []
+      );
+
+        // Tabla de libros planeados para leer
+      await this.dbInstance.executeSql(
+        `CREATE TABLE IF NOT EXISTS toread_books(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          title TEXT NOT NULL,
+          author TEXT NOT NULL,
+          user_email TEXT NOT NULL,
+          FOREIGN KEY (user_email) REFERENCES users(email)
+        )`,
+        []
+      );
+  
     }
 
       // Registrar usuario con los nuevos campos
@@ -89,6 +113,85 @@ async getUserData(email: string): Promise<any> {
     return null; // Retorna null en caso de error
   }
 }
+
+// Guardar un libro en la lista de libros ya leídos
+async addReadBook(title: string, author: string, userEmail: string): Promise<void> {
+  try {
+    await this.dbInstance.executeSql(
+      `INSERT INTO read_books (title, author, user_email) VALUES (?, ?, ?)`,
+      [title, author, userEmail]
+    );
+  } catch (error) {
+    console.error('Error al guardar el libro:', error);
+  }
+}
+
+// Obtener todos los libros ya leídos de un usuario
+async getReadBooks(userEmail: string): Promise<any[]> {
+  try {
+    const result = await this.dbInstance.executeSql(
+      `SELECT * FROM read_books WHERE user_email = ?`,
+      [userEmail]
+    );
+
+    const books = [];
+    for (let i = 0; i < result.rows.length; i++) {
+      books.push(result.rows.item(i));
+    }
+    return books;
+  } catch (error) {
+    console.error('Error al obtener los libros ya leídos:', error);
+    return [];
+  }
+}
+
+// Eliminar un libro ya leído
+async deleteReadBook(title: string, author: string, email: string): Promise<void> {
+  const query = `DELETE FROM read_books WHERE title = ? AND author = ? AND user_email = ?`;
+  await this.dbInstance.executeSql(query, [title, author, email]);
+}
+
+
+// Guardar un libro en la lista de libros planeados para leer
+async addToReadBook(title: string, author: string, userEmail: string): Promise<void> {
+  try {
+    await this.dbInstance.executeSql(
+      `INSERT INTO toread_books (title, author, user_email) VALUES (?, ?, ?)`,
+      [title, author, userEmail]
+    );
+  } catch (error) {
+    console.error('Error al guardar el libro planeado para leer:', error);
+  }
+}
+
+// Obtener todos los libros planeados para leer de un usuario
+async getToReadBooks(userEmail: string): Promise<any[]> {
+  try {
+    const result = await this.dbInstance.executeSql(
+      `SELECT * FROM toread_books WHERE user_email = ?`,
+      [userEmail]
+    );
+
+    const books = [];
+    for (let i = 0; i < result.rows.length; i++) {
+      books.push(result.rows.item(i));
+    }
+    return books;
+  } catch (error) {
+    console.error('Error al obtener los libros planeados para leer:', error);
+    return [];
+  }
+}
+
+// Eliminar un libro de la lista de libros planeados para leer
+async deleteToReadBook(title: string, author: string, email: string): Promise<void> {
+  const query = `DELETE FROM toread_books WHERE title = ? AND author = ? AND user_email = ?`;
+  await this.dbInstance.executeSql(query, [title, author, email]);
+}
+
+
+
+
 
 }
  

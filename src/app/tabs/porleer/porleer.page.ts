@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service'; // Importa el servicio de la API
-
-interface Book {
-  title: string;
-  author: string;
-}
+import { ApiService } from '../../services/api.service'; // Usamos ApiService para la búsqueda de libros
+import { DataService } from '../../services/data.service'; // Usamos DataService para los libros ya leídos y por leer
 
 @Component({
   selector: 'app-porleer',
@@ -13,45 +9,73 @@ interface Book {
 })
 export class PorleerPage implements OnInit {
   searchTerm: string = ''; // Término de búsqueda
-  books: Book[] = []; // Lista de libros traídos de la API
-  filteredBooks: Book[] = []; 
-  readBooks: Book[] = []; // Lista de libros seleccionados para leer
+  filteredBooks: any[] = []; // Libros filtrados por búsqueda
+  toReadBooks: any[] = []; // Libros por leer
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService, // Servicio para la búsqueda de libros
+    private dataService: DataService // Servicio para gestionar los libros por leer y leídos
+  ) {}
 
-  ngOnInit() {
-    // Inicialmente no hay libros seleccionados
-    this.filteredBooks = []; // O puedes inicializar con algunos libros si lo deseas
+  async ngOnInit() {
+    // Cargar los libros por leer al iniciar la página
+    const email = localStorage.getItem('email'); // Obtener el correo del usuario
+    if (email) {
+      this.toReadBooks = await this.dataService.getToReadBooks(email); // Obtener los libros por leer
+    }
   }
 
-  // Función para filtrar libros según el término de búsqueda
+  // Filtrar los libros de acuerdo al término de búsqueda
   filterBooks() {
     if (this.searchTerm.trim() === '') {
-      this.filteredBooks = []; // Si no hay término, no mostrar resultados
+      this.filteredBooks = []; // Si no hay término de búsqueda, limpiar la lista
       return;
     }
 
-    // Llamada al servicio de la API para obtener los libros según el término
+    // Llamada al servicio para buscar los libros
     this.apiService.searchBooks(this.searchTerm).subscribe(
       (response) => {
-        // Mapea los resultados de la API a nuestro modelo de Book
+        // Mapear los resultados de la búsqueda
         this.filteredBooks = response.docs.map((item: any) => ({
           title: item.title,
-          author: item.author_name ? item.author_name[0] : 'Desconocido',
+          author: item.author_name ? item.author_name[0] : 'Desconocido', // Verificar autor
         }));
       },
       (error) => {
-        console.error('Error al buscar libros:', error);
+        console.error('Error al buscar libros:', error); // Manejo de errores
       }
     );
   }
 
-  // Función para agregar un libro a los "libros planeo leer"
-  addBook(book: Book) {
-    // Verifica si el libro no está ya en la lista de libros leídos
-    if (!this.readBooks.includes(book)) {
-      this.readBooks.push(book);
+  // Agregar un libro a los libros por leer
+  async addBook(book: any) {
+    const email = localStorage.getItem('email');
+    if (!email) return; // Si no hay correo, salir
+
+    try {
+      // Agregar el libro a la base de datos (tabla toread_books)
+      await this.dataService.addToReadBook(book.title, book.author, email);
+
+      // Actualizar la lista local de libros por leer
+      this.toReadBooks = await this.dataService.getToReadBooks(email);
+    } catch (error) {
+      console.error('Error al agregar el libro:', error); // Manejo de errores
+    }
+  }
+
+  // Eliminar un libro de los libros por leer
+  async deleteBook(book: any, index: number) {
+    const email = localStorage.getItem('email');
+    if (!email) return; // Si no hay correo, salir
+
+    try {
+      // Eliminar el libro de la base de datos (tabla toread_books)
+      await this.dataService.deleteToReadBook(book.title, book.author, email);
+
+      // Eliminar el libro de la lista local
+      this.toReadBooks.splice(index, 1);
+    } catch (error) {
+      console.error('Error al eliminar el libro:', error); // Manejo de errores
     }
   }
 }
-

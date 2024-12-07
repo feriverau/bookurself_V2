@@ -1,0 +1,14 @@
+.cafe-button {
+    --background: #8B5E3C; /* Fondo café */
+    --color: #ffffff; /* Texto blanco */
+    --border-radius: 8px; /* Bordes redondeados */
+    font-weight: bold; /* Texto en negrita */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+    margin-top: 16px; /* Espaciado superior */
+  }
+  
+  .cafe-button:hover {
+    --background: #704327; /* Fondo más oscuro al pasar el ratón */
+    --color: #fff5e6; /* Texto más claro */
+  }
+  

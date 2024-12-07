@@ -1,26 +1,34 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title></ion-title>
+    <ion-title></ion-title> 
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+ 
   <ion-list>
     <ion-header>
-      <ion-title>Planeo Leer</ion-title>
+      <ion-title>Planeo Leer</ion-title> 
     </ion-header>
-    <ion-item *ngFor="let book of readBooks">
+    <ion-item *ngFor="let book of toReadBooks; let i = index">
       <ion-label>{{ book.title }} - {{ book.author }}</ion-label>
+     
+      <ion-button color="danger" slot="end" (click)="deleteBook(book, i)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
-  
+
+
   <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterBooks()"></ion-searchbar>
 
+ 
   <ion-list>
     <ion-item *ngFor="let book of filteredBooks" (click)="addBook(book)">
       <ion-label>{{ book.title }} - {{ book.author }}</ion-label>
+      <ion-button slot="end" color="primary">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
-
-  
 </ion-content>
