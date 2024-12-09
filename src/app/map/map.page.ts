@@ -9,11 +9,7 @@ import { MenuController } from '@ionic/angular';
 })
 export class MapPage implements OnInit {
 
-  constructor(private menu: MenuController) { }
-
-  // Coordenadas personalizadas
-  latitude: number = -33.0086885; // Latitud de la Librería Antártica Viña del Mar
-  longitude: number = -71.5473114; // Longitud de la Librería Antártica Viña del Mar
+  constructor(private menu: MenuController) {}
 
   ngOnInit() {
     this.menu.close("mainMenu");
@@ -38,10 +34,8 @@ export class MapPage implements OnInit {
         enableHighAccuracy: true,
       });
 
-      //const latitude = position.coords.latitude;
-      //const longitude = position.coords.longitude;
-
-   
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
 
       // Mostrar la ubicación en el mapa
       const mapFrame: HTMLIFrameElement | null = document.getElementById(
@@ -49,11 +43,12 @@ export class MapPage implements OnInit {
       ) as HTMLIFrameElement;
 
       if (mapFrame) {
-        mapFrame.src = `https://www.google.com/maps?q=${this.latitude},${this.longitude}&output=embed`;
+        mapFrame.src = `https://www.google.com/maps?q=${latitude},${longitude}&output=embed`;
       }
     } catch (error) {
-      alert('Error al obtener la ubicación: '+error);
+      alert('Error al obtener la ubicación: ' + error);
     }
   }
 
 }
+
