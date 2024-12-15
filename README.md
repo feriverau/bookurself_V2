@@ -35,6 +35,10 @@ Las siguientes rutas requieren que el usuario esté autenticado:
 
 ## Pruebas unitarias y e2e
 Se han implememtado además, para distintas páginas del proyecto, pruebas unitarias a través de Jasmine y Karma, y pruebas e2e a través de Cypress.
+- `/login`
+- `/authguards`
+- `/home`
+
 
 
 
